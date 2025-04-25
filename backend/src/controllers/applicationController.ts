@@ -108,6 +108,22 @@ export class ApplicationController {
     }
   }
 
+  async createAndEvaluateApplication(req: Request, res: Response) {
+    try {
+      // First create the application
+      const application = await this.applicationService.createApplication(req.body);
+
+      // Then evaluate it for flags
+      const flags = await this.flagService.evaluateApplication(application);
+
+      // Return both the application and its evaluation results
+      res.status(201).json({ application, flags });
+    } catch (error) {
+      console.error('Error creating and evaluating application:', error);
+      res.status(500).json({ error: 'Failed to create and evaluate application' });
+    }
+  }
+
   async deleteApplication(req: Request, res: Response) {
     const { id } = req.params;
     console.log('Backend: Received request to delete application with ID:', id);
