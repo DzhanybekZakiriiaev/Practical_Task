@@ -1,12 +1,43 @@
 import { Application } from '../models/Application';
 import { User } from '../models/User';
 import { Flag } from '../models/Flag';
+import * as fs from 'fs';
+import * as path from 'path';
+
+interface MockData {
+  applications: Application[];
+  users: User[];
+  flags: Flag[];
+}
 
 export class MockStorage {
   private applications: Application[] = [];
   private users: User[] = [];
   private flags: Flag[] = [];
   private tokens: Map<string, string> = new Map(); // Map<token, userId>
+
+  constructor() {
+    this.loadMockData();
+  }
+
+  private loadMockData() {
+    try {
+      const mockDataPath = path.join(__dirname, 'mockData.json');
+      const rawData = fs.readFileSync(mockDataPath, 'utf8');
+      const mockData: MockData = JSON.parse(rawData);
+      
+      this.applications = mockData.applications || [];
+      this.users = mockData.users || [];
+      this.flags = mockData.flags || [];
+      
+      console.log('Mock DB: Data loaded successfully');
+      console.log(`Loaded ${this.applications.length} applications`);
+      console.log(`Loaded ${this.users.length} users`);
+      console.log(`Loaded ${this.flags.length} flags`);
+    } catch (error) {
+      console.error('Mock DB: Error loading mock data:', error);
+    }
+  }
 
   // Application methods
   async getAllApplications(): Promise<Application[]> {
