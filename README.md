@@ -158,11 +158,17 @@ The system includes a mock database (`mockData.json`) with sample:
 
 ## Testing
 
-1. Start both backend and frontend servers
-2. Use the following test accounts:
-   - Reviewer: rachel.reviewer@example.com
-   - Applicant: alice.smith@example.com
-   - Password (for all accounts): [contact admin]
+1. Start both backend and frontend servers.
+2. Register a new applicant account.
+3. Login using the newly created applicant credentials.
+4. Submit an application.
+5. Logout.
+6. Register a new reviewer account by checking the reviewer checkbox during registration (available for debugging purposes).
+7. Login using the newly created reviewer credentials.
+8. Inspect the list of submitted applications.
+9. View the detailed information of selected applications.
+10. Override application flags where appropriate.
+
 
 ## Contributing
 
