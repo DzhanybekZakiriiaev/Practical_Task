@@ -1,0 +1,72 @@
+<div class="p-d-flex p-jc-center p-ai-center" style="min-height: 100vh;">
+  <p-card styleClass="p-shadow-4" style="width: 100%; max-width: 600px;">
+    <ng-template pTemplate="header">
+      <h3 class="p-text-center">Register</h3>
+    </ng-template>
+
+    <div *ngIf="auth.errorMessage" class="p-error p-mb-3">
+      {{ auth.errorMessage }}
+    </div>
+
+    <form (ngSubmit)="auth.register()">
+      <div class="p-grid p-formgrid p-fluid">
+        <div class="p-field p-col-12 p-md-6">
+          <label for="firstName">First Name</label>
+          <input pInputText
+                 type="text"
+                 id="firstName"
+                 [(ngModel)]="auth.registerData.firstName"
+                 name="firstName"
+                 required />
+        </div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="lastName">Last Name</label>
+          <input pInputText
+                 type="text"
+                 id="lastName"
+                 [(ngModel)]="auth.registerData.lastName"
+                 name="lastName"
+                 required />
+        </div>
+        <div class="p-field p-col-12">
+          <label for="email">Email</label>
+          <input pInputText
+                 type="email"
+                 id="email"
+                 [(ngModel)]="auth.registerData.email"
+                 name="email"
+                 required />
+        </div>
+        <div class="p-field p-col-12">
+          <label for="password">Password</label>
+          <input pInputText
+                 type="password"
+                 id="password"
+                 [(ngModel)]="auth.registerData.password"
+                 name="password"
+                 required />
+        </div>
+        <div class="p-field-checkbox p-col-12">
+          <p-checkbox
+                  inputId="isReviewer"
+                  [(ngModel)]="auth.registerData.isReviewer"
+                  name="isReviewer"
+                  binary="true">
+          </p-checkbox>
+          <label for="isReviewer">Is Reviewer</label>
+        </div>
+        <div class="p-col-12">
+          <button pButton
+                  type="submit"
+                  label="Register"
+                  class="p-button p-button-primary p-button-rounded p-button-block">
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <div class="p-text-center p-mt-3">
+      <p>Already have an account? <a routerLink="/login">Login here</a></p>
+    </div>
+  </p-card>
+</div>

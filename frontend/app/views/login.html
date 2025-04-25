@@ -1,0 +1,45 @@
+<div class="p-d-flex p-jc-center p-ai-center" style="min-height: 100vh;">
+  <p-card styleClass="p-shadow-4" style="width: 100%; max-width: 500px;">
+    <ng-template pTemplate="header">
+      <h3 class="p-text-center">Login</h3>
+    </ng-template>
+
+    <div *ngIf="auth.errorMessage" class="p-error p-mb-3">
+      {{ auth.errorMessage }}
+    </div>
+
+    <form (ngSubmit)="auth.login()">
+      <div class="p-field p-mb-3">
+        <label for="email">Email</label>
+        <input pInputText
+               type="email"
+               id="email"
+               [(ngModel)]="auth.loginData.email"
+               name="email"
+               required />
+      </div>
+
+      <div class="p-field p-mb-3">
+        <label for="password">Password</label>
+        <input pInputText
+               type="password"
+               id="password"
+               [(ngModel)]="auth.loginData.password"
+               name="password"
+               required />
+      </div>
+
+      <div class="p-mt-3">
+        <button pButton
+                type="submit"
+                label="Login"
+                class="p-button p-button-primary p-button-rounded p-button-block">
+        </button>
+      </div>
+    </form>
+
+    <div class="p-text-center p-mt-3">
+      <p>Don't have an account? <a routerLink="/register">Register here</a></p>
+    </div>
+  </p-card>
+</div>

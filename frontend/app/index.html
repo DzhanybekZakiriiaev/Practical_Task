@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="candidateEvaluation">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Candidate Evaluation System</title>
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
+
+  <!-- PrimeNG CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/primeng@14.2.2/resources/themes/lara-light-blue/theme.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/primeng@14.2.2/resources/primeng.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/primeicons@6.0.1/primeicons.css" rel="stylesheet" />
+
+  <!-- PrimeFlex (for layout utilities) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/primeflex@3.3.1/primeflex.min.css" />
+
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+
+  <!-- PrimeNG JS -->
+  <script src="https://cdn.jsdelivr.net/npm/primeng@14.2.2/primeng.min.js"></script>
+
+  <!-- App Scripts -->
+  <script src="app/app.js"></script>
+  <script src="app/services/auth.service.js"></script>
+  <script src="app/services/user.service.js"></script>
+  <script src="app/services/application.service.js"></script>
+  <script src="app/services/flag.service.js"></script>
+  <script src="app/controllers/auth.controller.js"></script>
+  <script src="app/controllers/user.controller.js"></script>
+  <script src="app/controllers/application.controller.js"></script>
+  <script src="app/controllers/application-detail.controller.js"></script>
+  <script src="app/components/application-form/application-form.component.js"></script>
+</head>
+<body>
+<!-- Navigation Bar using p-menubar -->
+<div ng-controller="AuthController as authCtrl" ng-show="authCtrl.showNavbar()">
+  <p-menubar [model]="authCtrl.menuItems" [style]="{'background':'#0d6efd', 'border':'none'}">
+    <ng-template pTemplate="start">
+      <a href="#!/" style="color:white; font-weight:bold;">Candidate Evaluation</a>
+    </ng-template>
+  </p-menubar>
+</div>
+
+<!-- Main Content -->
+<div ng-view></div>
+</body>
+</html>
