@@ -1,0 +1,301 @@
+<form name="applicationForm" ng-submit="$ctrl.submit()" novalidate>
+    <div class="modal-body">
+        <!-- Tab Navigation -->
+        <ul class="nav nav-tabs mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#personalInfo" type="button" role="tab">Personal Info</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#medicalEducation" type="button" role="tab">Medical Education</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#postGrad" type="button" role="tab">Post-Graduate</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#driversLicense" type="button" role="tab">Driver's License</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#background" type="button" role="tab">Background</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#english" type="button" role="tab">English</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tdm" type="button" role="tab">TDM</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#examDates" type="button" role="tab">Exam Dates</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#jurisdiction" type="button" role="tab">Jurisdiction</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#verification" type="button" role="tab">Verification</button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Personal Information Tab -->
+            <div class="tab-pane fade show active" id="personalInfo">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name *</label>
+                        <input type="text" class="form-control" id="firstName" ng-model="$ctrl.application.firstName" required ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name *</label>
+                        <input type="text" class="form-control" id="lastName" ng-model="$ctrl.application.lastName" required ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email *</label>
+                        <input type="email" class="form-control" id="email" ng-model="$ctrl.application.email" required ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="phone" class="form-label">Phone *</label>
+                        <input type="tel" class="form-control" id="phone" ng-model="$ctrl.application.phone" required ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="dob" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" ng-model="$ctrl.application.dob" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="citizenship" class="form-label">Citizenship *</label>
+                        <select class="form-select" id="citizenship" ng-model="$ctrl.application.citizenship" required ng-disabled="$ctrl.isReadOnly">
+                            <option value="">Select Citizenship</option>
+                            <option value="PR">Permanent Resident</option>
+                            <option value="Citizen">Citizen</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="form-text text-danger" ng-if="$ctrl.application.citizenship === 'Other'">
+                            Other citizenship status is not eligible for this position.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical Education Tab -->
+            <div class="tab-pane fade" id="medicalEducation">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="medicalSchool" class="form-label">Medical School</label>
+                        <input type="text" class="form-control" id="medicalSchool" ng-model="$ctrl.application.medicalSchool" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="medDegreeProgram" class="form-label">Medical Degree Program</label>
+                        <input type="text" class="form-control" id="medDegreeProgram" ng-model="$ctrl.application.medDegreeProgram" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="yearGraduation" class="form-label">Year of Graduation</label>
+                        <input type="number" class="form-control" id="yearGraduation" ng-model="$ctrl.application.yearGraduation" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="languageOfEducation" class="form-label">Language of Education</label>
+                        <input type="text" class="form-control" id="languageOfEducation" ng-model="$ctrl.application.languageOfEducation" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Post-Graduate Training Tab -->
+            <div class="tab-pane fade" id="postGrad">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="postGradCompleted" ng-model="$ctrl.application.postGradCompleted" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="postGradCompleted">Post-Graduate Training Completed</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="rotationsCompleted" ng-model="$ctrl.application.rotationsCompleted" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="rotationsCompleted">Rotations Completed</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="monthsPostGradTraining" class="form-label">Months of Post-Graduate Training</label>
+                        <input type="number" class="form-control" id="monthsPostGradTraining" ng-model="$ctrl.application.monthsPostGradTraining" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="monthsIndependentPractice" class="form-label">Months of Independent Practice</label>
+                        <input type="number" class="form-control" id="monthsIndependentPractice" ng-model="$ctrl.application.monthsIndependentPractice" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="canadianPracticeCriteriaMet" ng-model="$ctrl.application.canadianPracticeCriteriaMet" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="canadianPracticeCriteriaMet">Canadian Practice Criteria Met</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Driver's License Tab -->
+            <div class="tab-pane fade" id="driversLicense">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="driversLicense" ng-model="$ctrl.application.driversLicense" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="driversLicense">Has Driver's License</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="driversLicenseType" class="form-label">Driver's License Type</label>
+                        <select class="form-select" id="driversLicenseType" ng-model="$ctrl.application.driversLicenseType" ng-disabled="$ctrl.isReadOnly">
+                            <option value="">Select License Type</option>
+                            <option value="Canadian">Canadian</option>
+                            <option value="International">International</option>
+                        </select>
+                        <div class="form-text text-danger" ng-if="$ctrl.application.driversLicenseType === 'International'">
+                            International driver's license may require additional verification.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Background Information Tab -->
+            <div class="tab-pane fade" id="background">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="hasCriminalHistory" ng-model="$ctrl.application.hasCriminalHistory" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="hasCriminalHistory">Has Criminal History</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="hasEmploymentGaps" ng-model="$ctrl.application.hasEmploymentGaps" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="hasEmploymentGaps">Has Employment Gaps</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- English Proficiency Tab -->
+            <div class="tab-pane fade" id="english">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="englishExam" class="form-label">English Exam Type</label>
+                        <select class="form-select" id="englishExam" ng-model="$ctrl.application.englishExam" ng-disabled="$ctrl.isReadOnly">
+                            <option value="">Select Exam Type</option>
+                            <option value="IELTS">IELTS</option>
+                            <option value="TOEFL">TOEFL</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="englishExamScore" class="form-label">Exam Score</label>
+                        <input type="number" class="form-control" id="englishExamScore" ng-model="$ctrl.application.englishExamScore" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="englishProficiencyExpired" ng-model="$ctrl.application.englishProficiencyExpired" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="englishProficiencyExpired">English Proficiency Expired</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="activeUseOfEnglish" ng-model="$ctrl.application.activeUseOfEnglish" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="activeUseOfEnglish">Active Use of English</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TDM Information Tab -->
+            <div class="tab-pane fade" id="tdm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="tdmWritten" ng-model="$ctrl.application.tdmWritten" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="tdmWritten">TDM Written</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="tdmResult" class="form-label">TDM Result</label>
+                        <select class="form-select" id="tdmResult" ng-model="$ctrl.application.tdmResult" ng-disabled="$ctrl.isReadOnly">
+                            <option value="">Select Result</option>
+                            <option value="Pass">Pass</option>
+                            <option value="Fail">Fail</option>
+                            <option value="Pending">Pending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exam Dates Tab -->
+            <div class="tab-pane fade" id="examDates">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="nacDate" class="form-label">NAC Date</label>
+                        <input type="date" class="form-control" id="nacDate" ng-model="$ctrl.application.nacDate" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="mccqe1Date" class="form-label">MCCQE1 Date</label>
+                        <input type="date" class="form-control" id="mccqe1Date" ng-model="$ctrl.application.mccqe1Date" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="mccqe2Date" class="form-label">MCCQE2 Date</label>
+                        <input type="date" class="form-control" id="mccqe2Date" ng-model="$ctrl.application.mccqe2Date" ng-disabled="$ctrl.isReadOnly">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Jurisdiction Tab -->
+            <div class="tab-pane fade" id="jurisdiction">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="otherJurisdictionParticipation" ng-model="$ctrl.application.otherJurisdictionParticipation" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="otherJurisdictionParticipation">Participating in Other Jurisdiction</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Status Tab -->
+            <div class="tab-pane fade" id="verification">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="educationVerified" ng-model="$ctrl.application.educationVerified" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="educationVerified">Education Verified</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="referencesChecked" ng-model="$ctrl.application.referencesChecked" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="referencesChecked">References Checked</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="socialMediaChecked" ng-model="$ctrl.application.socialMediaChecked" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="socialMediaChecked">Social Media Checked</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="skillsAssessed" ng-model="$ctrl.application.skillsAssessed" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="skillsAssessed">Skills Assessed</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="languageProficiencyVerified" ng-model="$ctrl.application.languageProficiencyVerified" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="languageProficiencyVerified">Language Proficiency Verified</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="workAuthorizationVerified" ng-model="$ctrl.application.workAuthorizationVerified" ng-disabled="$ctrl.isReadOnly">
+                            <label class="form-check-label" for="workAuthorizationVerified">Work Authorization Verified</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-footer" ng-if="!$ctrl.isReadOnly">
+        <button type="button" class="btn btn-secondary" ng-click="$ctrl.cancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary" ng-disabled="applicationForm.$invalid">Submit</button>
+    </div>
+</form> 
