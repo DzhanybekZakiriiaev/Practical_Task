@@ -1,0 +1,380 @@
+<div class="container mt-4" ng-controller="ApplicationController as vm">
+    <div class="flex justify-content-between align-items-center mb-4">
+        <h2>Applications</h2>
+        <p-button label="New Application" icon="pi pi-plus" (click)="vm.openModal()"></p-button>
+    </div>
+
+    <p-table [value]="vm.applications" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" 
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Citizenship</th>
+                <th>Status</th>
+                <th>Verification Status</th>
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-application>
+            <tr>
+                <td>{{ application.id }}</td>
+                <td>{{ application.firstName }} {{ application.lastName }}</td>
+                <td>{{ application.email }}</td>
+                <td>{{ application.phone }}</td>
+                <td>{{ application.citizenship }}</td>
+                <td>
+                    <p-tag [severity]="!application.hasFlags ? 'success' : 
+                        (application.hasFlags && !application.hasOverriddenFlags ? 'warning' : 'danger')"
+                        [value]="application.hasFlags ? 'Flagged' : 'Clear'">
+                    </p-tag>
+                </td>
+                <td>
+                    <div class="verification-status">
+                        <p-tag [severity]="application.educationVerified ? 'success' : 'info'" value="Education"></p-tag>
+                        <p-tag [severity]="application.referencesChecked ? 'success' : 'info'" value="References"></p-tag>
+                        <p-tag [severity]="application.socialMediaChecked ? 'success' : 'info'" value="Social Media"></p-tag>
+                        <p-tag [severity]="application.skillsAssessed ? 'success' : 'info'" value="Skills"></p-tag>
+                        <p-tag [severity]="application.languageProficiencyVerified ? 'success' : 'info'" value="Language"></p-tag>
+                        <p-tag [severity]="application.workAuthorizationVerified ? 'success' : 'info'" value="Work Auth"></p-tag>
+                    </div>
+                </td>
+                <td>
+                    <p-button icon="pi pi-eye" (click)="vm.viewApplication(application.id)"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!-- New Application Dialog -->
+    <p-dialog header="New Application" [(visible)]="vm.showModal" [modal]="true" [style]="{width: '75vw'}" 
+        [draggable]="false" [resizable]="false">
+        <form ng-submit="vm.createApplication()" name="applicationForm" novalidate>
+            <p-tabView>
+                <!-- Personal Information Tab -->
+                <p-tabPanel header="Personal Information">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="firstName" class="block">First Name *</label>
+                                <input pInputText id="firstName" ng-model="vm.newApplication.firstName" required>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="lastName" class="block">Last Name *</label>
+                                <input pInputText id="lastName" ng-model="vm.newApplication.lastName" required>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="email" class="block">Email *</label>
+                                <input pInputText type="email" id="email" ng-model="vm.newApplication.email" required>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="phone" class="block">Phone *</label>
+                                <input pInputText id="phone" ng-model="vm.newApplication.phone" required>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="dob" class="block">Date of Birth</label>
+                                <p-calendar id="dob" ng-model="vm.newApplication.dob" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="citizenship" class="block">Citizenship *</label>
+                                <p-dropdown id="citizenship" [options]="[
+                                    {label: 'Permanent Resident', value: 'PR'},
+                                    {label: 'Citizen', value: 'Citizen'},
+                                    {label: 'Other', value: 'Other'}
+                                ]" ng-model="vm.newApplication.citizenship" required>
+                                </p-dropdown>
+                                <small class="p-error" *ngIf="vm.newApplication.citizenship === 'Other'">
+                                    Other citizenship status is not eligible for this position.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Medical Education Tab -->
+                <p-tabPanel header="Medical Education">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="medicalSchool" class="block">Medical School</label>
+                                <input pInputText id="medicalSchool" ng-model="vm.newApplication.medicalSchool">
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="medDegreeProgram" class="block">Medical Degree Program</label>
+                                <input pInputText id="medDegreeProgram" ng-model="vm.newApplication.medDegreeProgram">
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="yearGraduation" class="block">Year of Graduation</label>
+                                <p-inputNumber id="yearGraduation" ng-model="vm.newApplication.yearGraduation"></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="languageOfEducation" class="block">Language of Education</label>
+                                <input pInputText id="languageOfEducation" ng-model="vm.newApplication.languageOfEducation">
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Post-Graduate Training Tab -->
+                <p-tabPanel header="Post-Graduate Training">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="postGradCompleted" ng-model="vm.newApplication.postGradCompleted" 
+                                    label="Post-Graduate Training Completed">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="rotationsCompleted" ng-model="vm.newApplication.rotationsCompleted" 
+                                    label="Rotations Completed">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="monthsPostGradTraining" class="block">Months of Post-Graduate Training</label>
+                                <p-inputNumber id="monthsPostGradTraining" ng-model="vm.newApplication.monthsPostGradTraining"></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="monthsIndependentPractice" class="block">Months of Independent Practice</label>
+                                <p-inputNumber id="monthsIndependentPractice" ng-model="vm.newApplication.monthsIndependentPractice"></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="field">
+                                <p-checkbox id="canadianPracticeCriteriaMet" ng-model="vm.newApplication.canadianPracticeCriteriaMet" 
+                                    label="Canadian Practice Criteria Met">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Driver's License Tab -->
+                <p-tabPanel header="Driver's License">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="driversLicense" ng-model="vm.newApplication.driversLicense" 
+                                    label="Has Driver's License">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="driversLicenseType" class="block">Driver's License Type</label>
+                                <input pInputText id="driversLicenseType" ng-model="vm.newApplication.driversLicenseType">
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Background Information Tab -->
+                <p-tabPanel header="Background Information">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="hasCriminalHistory" ng-model="vm.newApplication.hasCriminalHistory" 
+                                    label="Has Criminal History">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="hasEmploymentGaps" ng-model="vm.newApplication.hasEmploymentGaps" 
+                                    label="Has Employment Gaps">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- English Proficiency Tab -->
+                <p-tabPanel header="English Proficiency">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="englishExam" class="block">English Exam Type</label>
+                                <p-dropdown id="englishExam" [options]="[
+                                    {label: 'IELTS', value: 'IELTS'},
+                                    {label: 'TOEFL', value: 'TOEFL'},
+                                    {label: 'Other', value: 'Other'}
+                                ]" ng-model="vm.newApplication.englishExam">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="englishExamScore" class="block">Exam Score</label>
+                                <p-inputNumber id="englishExamScore" ng-model="vm.newApplication.englishExamScore"></p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="englishProficiencyExpired" ng-model="vm.newApplication.englishProficiencyExpired" 
+                                    label="English Proficiency Expired">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="activeUseOfEnglish" ng-model="vm.newApplication.activeUseOfEnglish" 
+                                    label="Active Use of English">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- TDM Information Tab -->
+                <p-tabPanel header="TDM Information">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="tdmWritten" ng-model="vm.newApplication.tdmWritten" 
+                                    label="TDM Written">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <label for="tdmResult" class="block">TDM Result</label>
+                                <p-dropdown id="tdmResult" [options]="[
+                                    {label: 'Pass', value: 'Pass'},
+                                    {label: 'Fail', value: 'Fail'},
+                                    {label: 'Pending', value: 'Pending'}
+                                ]" ng-model="vm.newApplication.tdmResult">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Exam Dates Tab -->
+                <p-tabPanel header="Exam Dates">
+                    <div class="grid">
+                        <div class="col-12 md:col-4">
+                            <div class="field">
+                                <label for="nacDate" class="block">NAC Date</label>
+                                <p-calendar id="nacDate" ng-model="vm.newApplication.nacDate" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-4">
+                            <div class="field">
+                                <label for="mccqe1Date" class="block">MCCQE1 Date</label>
+                                <p-calendar id="mccqe1Date" ng-model="vm.newApplication.mccqe1Date" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-4">
+                            <div class="field">
+                                <label for="mccqe2Date" class="block">MCCQE2 Date</label>
+                                <p-calendar id="mccqe2Date" ng-model="vm.newApplication.mccqe2Date" [showIcon]="true"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Other Jurisdiction Tab -->
+                <p-tabPanel header="Other Jurisdiction">
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="field">
+                                <p-checkbox id="otherJurisdictionParticipation" ng-model="vm.newApplication.otherJurisdictionParticipation" 
+                                    label="Participating in Other Jurisdiction">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <!-- Verification Status Tab -->
+                <p-tabPanel header="Verification Status">
+                    <div class="grid">
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="educationVerified" ng-model="vm.newApplication.educationVerified" 
+                                    label="Education Verified">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="referencesChecked" ng-model="vm.newApplication.referencesChecked" 
+                                    label="References Checked">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="socialMediaChecked" ng-model="vm.newApplication.socialMediaChecked" 
+                                    label="Social Media Checked">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="skillsAssessed" ng-model="vm.newApplication.skillsAssessed" 
+                                    label="Skills Assessed">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="languageProficiencyVerified" ng-model="vm.newApplication.languageProficiencyVerified" 
+                                    label="Language Proficiency Verified">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <div class="field">
+                                <p-checkbox id="workAuthorizationVerified" ng-model="vm.newApplication.workAuthorizationVerified" 
+                                    label="Work Authorization Verified">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+
+            <ng-template pTemplate="footer">
+                <p-button label="Cancel" icon="pi pi-times" (click)="vm.closeModal()" class="p-button-text"></p-button>
+                <p-button label="Create" icon="pi pi-check" type="submit" 
+                    [disabled]="applicationForm.$invalid || vm.newApplication.citizenship === 'Other'">
+                </p-button>
+            </ng-template>
+        </form>
+    </p-dialog>
+</div>
+
+<style>
+.verification-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.field {
+    margin-bottom: 1rem;
+}
+</style> 

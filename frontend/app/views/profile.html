@@ -1,0 +1,78 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Profile</h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger" ng-if="user.errorMessage">
+                        {{user.errorMessage}}
+                    </div>
+                    <div class="alert alert-success" ng-if="user.successMessage">
+                        {{user.successMessage}}
+                    </div>
+
+                    <form ng-submit="user.updateProfile()">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       ng-model="user.userData.firstName" 
+                                       required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       ng-model="user.userData.lastName" 
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" 
+                                       class="form-control" 
+                                       ng-model="user.userData.email" 
+                                       required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Role</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       ng-model="user.userData.role" 
+                                       disabled>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Created At</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       ng-value="user.userData.createdAt | date:'medium'" 
+                                       disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Updated</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       ng-value="user.userData.updatedAt | date:'medium'" 
+                                       disabled>
+                            </div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Update Profile
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
